@@ -1,15 +1,12 @@
-import mariadb
+from sqlmodel import create_engine
+import yaml
 
-def connect(config):
-  try:
-    connection = mariadb.connect(
-      user = config["user"],
-      password = config["password"],
-      database = config["database"],
-      host = config["host"],
-      port = int(config["port"])
-    )
-  except mariadb.Error as e:
-    print(e)
+def connect():
+  with open("dev.config.yml", "r") as file:
+    config = yaml.safe_load(file)
 
-  return connection
+  config = config["database"]
+  
+  connection = f"mariadb+mariadbconnector://{config["user"]}:{config["password"]}@{config["host"]}:{config["port"]}/{config["database"]}"
+  engine = create_engine(connection)
+  return engine
