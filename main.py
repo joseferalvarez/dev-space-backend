@@ -1,15 +1,12 @@
-from fastapi import FastAPI;
-from database import connect
-from sqlmodel import Session, text
+from fastapi import FastAPI
+from database import connect, create_db
+from src.languages.router import get_language_router
 
-app = FastAPI();
+app = FastAPI()
+
 
 engine = connect()
+create_db()
 
-with Session(engine) as session:
-  language = session.exec(text("SELECT * FROM languages")).first()
-  print(language)
 
-@app.get("/")
-def get_test():
-  return {"Hello": "World"}
+app.include_router(get_language_router())

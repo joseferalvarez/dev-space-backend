@@ -1,2 +1,4 @@
 env
 dev.config.yml
+__pycache__
+__pycache__/
