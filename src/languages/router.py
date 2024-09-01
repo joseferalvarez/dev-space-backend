@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from .schemas import LanguageCreate
+from .schemas import LanguagePost
 from .service import LangService
 
 router = APIRouter()
@@ -8,11 +8,12 @@ service = LangService
 
 @router.get("/languages/", tags=["language"])
 def get_languages():
-   return {"languages": "test"}
+  languages = service.get_languages()
+  return {"languages": languages}
 
 
 @router.post("/language/", tags=["language"])
-def post_language(language: LanguageCreate):
+def post_language(language: LanguagePost):
   result = service.post_language(language)
   return {"language": result}
 
