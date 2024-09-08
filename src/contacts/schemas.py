@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 from pydantic import BaseModel, EmailStr, Field
 
 class ContactBase(BaseModel):
@@ -7,7 +7,6 @@ class ContactBase(BaseModel):
   email: EmailStr = Field(max_length=25)
   company: str = Field(max_length=50)
   message: str = Field(max_length=4000)
-  date_send: date
 
 class ContactPostPut(ContactBase):
   pass

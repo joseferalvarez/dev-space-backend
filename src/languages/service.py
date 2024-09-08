@@ -13,7 +13,6 @@ from .schemas import (
 from database import connect
 from dependencies import generate_slug
 
-#TODO: control the ISO length
 class LangService():
   def get_languages():
     """get all the languages"""
