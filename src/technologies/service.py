@@ -5,19 +5,19 @@ from .schemas import TechnologyBase
 from dependencies import generate_slug
 
 class ServiceTechnology:
-  def get_technologies():
+  async def get_technologies():
     """get all the technologies"""
     with Session(connect()) as session:
       technologies = session.exec(select(Technology)).all()
       return technologies
   
-  def get_technology(id):
+  async def get_technology(id):
     """get a technology by it's id"""
     with Session(connect()) as session:
       technology = session.exec(select(Technology).where(Technology.id == id)).first()
       return technology
     
-  def post_technology(technology: TechnologyBase):
+  async def post_technology(technology: TechnologyBase):
     """post a new technology (technology_name, slug, link, icon)"""
     with Session(connect()) as session:
       new_technology = Technology(
@@ -33,7 +33,7 @@ class ServiceTechnology:
 
       return new_technology
   
-  def put_technology(id: int, technology: TechnologyBase):
+  async def put_technology(id: int, technology: TechnologyBase):
     """update an existing technology (id, [technology_name, link, icon])"""
     with Session(connect()) as session:
       current_tech = session.exec(select(Technology).where(Technology.id == id)).first()
@@ -55,7 +55,7 @@ class ServiceTechnology:
 
       return current_tech
   
-  def delete_technology(id: int):
+  async def delete_technology(id: int):
     """delete a technology by it's id"""
     with Session(connect()) as session:
       tech = session.exec(select(Technology).where(Technology.id == id)).first()
