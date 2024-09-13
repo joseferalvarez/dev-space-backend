@@ -1,21 +1,21 @@
 from database import connect
 from sqlmodel import Session, select
-from models import Social
-from schemas import SocialBase
+from .models import Social
+from .schemas import SocialBase
 from dependencies import generate_slug
 
-class ServiceSocial():
-  def read_socials():
+class ServiceSocial:
+  async def read_socials():
     with Session(connect()) as session:
       social = session.exec(select(Social)).all()
       return social
     
-  def read_social(id):
+  async def read_social(id):
     with Session(connect()) as session:
       social = session.exec(select(Social).where(Social.id == id)).first()
       return social
     
-  def post_social(social: SocialBase):
+  async def post_social(social: SocialBase):
     with Session(connect()) as session:
       new_social = Social(
         social_name=social.social_name,
@@ -30,7 +30,7 @@ class ServiceSocial():
 
       return new_social
   
-  def put_social(id: int, social: SocialBase):
+  async def put_social(id: int, social: SocialBase):
     with Session(connect()) as session:
       new_social = session.exec(select(Social).where(Social.id == id)).first()
 
@@ -45,7 +45,7 @@ class ServiceSocial():
 
       return new_social
   
-  def delete_social(id):
+  async def delete_social(id):
     with Session(connect()) as session:
       social = session.exec(select(Social).where(Social.id == id)).first()
 
