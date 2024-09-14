@@ -7,7 +7,7 @@ def connect():
 
   config = config["database"]
   
-  connection = f"mariadb+mariadbconnector://{config["user"]}:{config["password"]}@{config["host"]}:{config["port"]}/{config["database"]}"
+  connection = f"mariadb+mariadbconnector://{config['user']}:{config['password']}@{config['host']}:{config['port']}/{config['database']}"
   engine = create_engine(connection)
   return engine
 

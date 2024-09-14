@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from database import connect, create_db
 from src.languages.router import get_language_router
@@ -10,6 +11,16 @@ from src.categories.router import get_category_router
 from src.profiles.router import get_profile_router
 
 app = FastAPI()
+origins = ['*']
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.mount("/public", StaticFiles(directory="public"), name="public")
 
 engine = connect()
