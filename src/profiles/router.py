@@ -10,9 +10,13 @@ translation_service = ProfileTranslationService
 async def get_profiles():
   return await service.get_profiles()
 
-@router.get("/profile/{id}/", tags=["Profiles", "Profile"])
-async def get_profile(id):
-  return await service.get_profile(id)
+#@router.get("/profile/{id}/", tags=["Profiles", "Profile"])
+#async def get_profile(id):
+#  return await service.get_profile(id)
+
+@router.get("/profile/{username}/", tags=["Profiles", "Profile"])
+async def get_profile_by_username(username):
+  return await service.get_profile_by_username(username)
 
 @router.post("/profile/", tags=["Profiles", "Profile"])
 async def post_profile(profile: ProfileBase):

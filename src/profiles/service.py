@@ -36,6 +36,12 @@ class ProfileService:
     with Session(connect()) as session:
       profile = session.exec(select(Profile).where(Profile.id == id)).first()
       return profile
+    
+  async def get_profile_by_username(username: str):
+    with Session(connect()) as session:
+      profile = session.exec(select(Profile).where(Profile.username == username)).first()
+      print(profile)
+      return profile
   
   async def post_profile(profile: ProfileBase):
     with Session(connect()) as session:

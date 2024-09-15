@@ -1,7 +1,9 @@
 from typing import Optional
+from sqlalchemy import UniqueConstraint
 from sqlmodel import SQLModel, Field
 
 class Profile(SQLModel, table=True):
+  __table_args__ = (UniqueConstraint("username"),)
   id: Optional[int] = Field(default=None, primary_key=True)
   username: str = Field(max_length=50)
   slug: str = Field(max_length=100)
